@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# wordpress backup
+/backup_wp
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

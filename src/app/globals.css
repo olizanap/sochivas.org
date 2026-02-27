@@ -1,26 +1,65 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  body {
+    @apply text-body leading-relaxed;
+    font-size: 15px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-navy;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .badge {
+    @apply inline-block px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded;
+  }
+
+  .badge-red {
+    @apply bg-accent text-white;
+  }
+
+  .badge-blue {
+    @apply bg-navy text-white;
+  }
+
+  .badge-muted {
+    @apply bg-gray-200 text-gray-700;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-navy mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-muted text-sm uppercase tracking-widest mb-6;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden
+           transition-all duration-300 hover:shadow-md hover:-translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-navy text-white font-semibold rounded-lg
+           transition-all duration-200 hover:bg-navy-dark hover:shadow-lg;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-accent text-white font-semibold rounded-lg
+           transition-all duration-200 hover:bg-accent-dark hover:shadow-lg;
+  }
+
+  .container-site {
+    @apply max-w-site mx-auto px-4 sm:px-6;
+  }
 }
