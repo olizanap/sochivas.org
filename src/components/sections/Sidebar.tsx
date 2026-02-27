@@ -54,16 +54,23 @@ export default function Sidebar({
 
       {/* Webinar Journal Club */}
       <a
-        href="#videoteca"
+        href="/webinars"
         className="card block p-5 bg-navy text-white hover:bg-navy-dark transition-colors group"
       >
         <div className="flex items-center gap-3 mb-2">
           <PlayCircle size={24} />
-          <h3 className="font-bold text-base">Webinar Journal Club</h3>
+          <h3 className="font-bold text-base">Webinars</h3>
         </div>
         <p className="text-sm text-white/70">
-          Revisa las sesiones del Journal Club Interuniversitario
+          Journal Club Interuniversitario — sesiones mensuales de actualización
         </p>
+        <span className="inline-flex items-center gap-1 text-white/90 text-sm font-semibold mt-2">
+          Ver webinars
+          <ArrowRight
+            size={14}
+            className="group-hover:translate-x-1 transition-transform"
+          />
+        </span>
       </a>
 
       {/* Convención 2026 */}

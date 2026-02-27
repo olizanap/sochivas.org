@@ -92,6 +92,41 @@ export function getSociedad(): SociedadData {
   return { title: String(data.title || ""), content };
 }
 
+export interface Webinar {
+  title: string;
+  date: string;
+  speaker: string;
+  speakerRole: string;
+  description: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  active: boolean;
+  slug: string;
+  content: string;
+}
+
+export function getWebinars(): Webinar[] {
+  return getMarkdownFiles("webinars")
+    .map((item) => ({
+      title: String(item.title || ""),
+      date: String(item.date || ""),
+      speaker: String(item.speaker || ""),
+      speakerRole: String(item.speakerRole || ""),
+      description: String(item.description || ""),
+      videoUrl: String(item.videoUrl || ""),
+      thumbnailUrl: String(item.thumbnailUrl || "/images/header-web-sochivas.png"),
+      active: Boolean(item.active),
+      slug: String(item.slug || ""),
+      content: item.content,
+    }))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function getActiveWebinar(): Webinar | null {
+  const webinars = getWebinars();
+  return webinars.find((w) => w.active) || null;
+}
+
 export function getDirectorio(): DirectorioData {
   const filePath = path.join(contentDir, "directorio.md");
   const fileContent = fs.readFileSync(filePath, "utf-8");

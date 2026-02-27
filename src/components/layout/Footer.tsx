@@ -14,7 +14,7 @@ const externalLinks = [
   { label: "Buscar Especialista", href: "/directorio" },
   { label: "Convención 2026", href: "https://convencion2026.sochivas.cl", external: true },
   { label: "Cursos Online", href: "https://info.cursosochivas.cl", external: true },
-  { label: "Videoteca Journal Club", href: "#videoteca" },
+  { label: "Webinars Journal Club", href: "/webinars" },
   { label: "Galería", href: "#galeria" },
   { label: "Área Socios", href: "#area-socios" },
 ] as const;

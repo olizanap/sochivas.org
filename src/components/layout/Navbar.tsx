@@ -19,7 +19,7 @@ const navItems = [
   { label: "Noticias", href: "/noticias" },
   { label: "Extensión", href: "/extension" },
   { label: "Info. Pacientes", href: "/informacion-pacientes" },
-  { label: "Videos", href: "#videoteca" },
+  { label: "Webinars", href: "/webinars" },
   { label: "Contacto", href: "/contacto" },
   {
     label: "Convención 2026",
