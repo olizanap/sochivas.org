@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getDirectorio } from "@/lib/content";
 import PageHeader from "@/components/sections/PageHeader";
 import { User, Award } from "lucide-react";
@@ -7,13 +6,6 @@ import { User, Award } from "lucide-react";
 export const metadata: Metadata = {
   title: "Directorio",
   description: "Directorio 2024-2025 de la Sociedad Chilena de Cirugía Vascular y Endovascular.",
-};
-
-const ejecutivoPhotos: Record<string, string> = {
-  "Dr. Juan Pablo Moreno": "/images/dr1.png",
-  "Dra. Sandra Osorio": "/images/dr2.png",
-  "Dr. Eitan Schwartz": "/images/dr3.png",
-  "Dr. Francisco Vargas": "/images/dr4.png",
 };
 
 export default function DirectorioPage() {
@@ -37,19 +29,9 @@ export default function DirectorioPage() {
               {dir.ejecutivo.map((m) => (
                 <div key={m.nombre} className="card p-6 text-center">
                   <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 ring-2 ring-navy/10">
-                    {ejecutivoPhotos[m.nombre] ? (
-                      <Image
-                        src={ejecutivoPhotos[m.nombre]}
-                        alt={m.nombre}
-                        width={96}
-                        height={96}
-                        className="object-cover w-full h-full"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-navy/10 to-navy/5 flex items-center justify-center">
-                        <User size={32} className="text-navy/40" />
-                      </div>
-                    )}
+                    <div className="w-full h-full bg-gradient-to-br from-navy/10 to-navy/5 flex items-center justify-center">
+                      <User size={32} className="text-navy/40" />
+                    </div>
                   </div>
                   <h3 className="font-bold text-navy text-base mb-1">
                     {m.nombre}
