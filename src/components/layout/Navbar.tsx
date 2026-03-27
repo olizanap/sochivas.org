@@ -69,8 +69,6 @@ export default function Navbar() {
             >
               <a
                 href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
                 className={cn(
                   "flex items-center gap-1 px-3 py-2 text-[13px] font-semibold rounded-md transition-colors whitespace-nowrap",
                   item.highlight
@@ -118,8 +116,6 @@ export default function Navbar() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noopener noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "block px-4 py-3 text-sm font-semibold rounded-lg transition-colors",
