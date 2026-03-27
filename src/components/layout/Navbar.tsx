@@ -23,8 +23,7 @@ const navItems = [
   { label: "Contacto", href: "/contacto" },
   {
     label: "Convención 2026",
-    href: "https://convencion2026.sochivas.cl",
-    external: true,
+    href: "/convencion-2026",
     highlight: true,
   },
 ];

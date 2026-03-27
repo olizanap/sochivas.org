@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 const eventos = [
   {
-    title: "XII° Convención Anual SOCHIVAS 2026",
+    title: "XXII Convención Anual SOCHIVAS 2026",
     date: "23 y 24 de abril, 2026",
     location: "Hotel Santa Cruz, Valle de Colchagua",
     description:
-      "La próxima Convención Anual de SOCHIVAS reunirá a los principales expertos en cirugía vascular y endovascular del país.",
-    url: "https://convencion2026.sochivas.cl",
+      "La próxima Convención Anual de SOCHIVAS reunirá a los principales expertos en cirugía vascular y endovascular del país. Foros sobre accesos vasculares, venas, enfermedad periférica, aorta y más.",
+    url: "/convencion-2026",
     upcoming: true,
   },
 ];
@@ -60,8 +60,6 @@ export default function AgendaPage() {
                   </p>
                   <a
                     href={ev.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-accent text-sm font-semibold hover:underline"
                   >
                     Más información <ArrowUpRight size={14} />
