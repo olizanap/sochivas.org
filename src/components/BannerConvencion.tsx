@@ -38,6 +38,7 @@ const auspiciadoresRow3: Auspiciador[] = [
   { nombre: "BIOHERTZ" },
   { nombre: "TH Medical" },
   { nombre: "CAMIR" },
+  { nombre: "CMS Medical" },
 ];
 
 /* ══════════════════════════════════════════════════════════ */
@@ -99,20 +100,6 @@ const BannerConvencion = forwardRef<HTMLDivElement>(function BannerConvencion(_,
           padding: "0 30px 20px",
         }}
       >
-        <h3
-          style={{
-            textAlign: "center",
-            fontSize: 13,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: 4,
-            color: NAVY,
-            margin: "0 0 14px",
-          }}
-        >
-          Auspician
-        </h3>
-
         {[auspiciadoresRow1, auspiciadoresRow2, auspiciadoresRow3].map((row, ri) => (
           <div
             key={ri}
