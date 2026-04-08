@@ -60,15 +60,6 @@ export default function Hero() {
               href="/convencion-2026"
               className="md:hidden mt-6 flex items-center gap-4 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-4 hover:bg-white/15 transition-colors"
             >
-              <div className="w-16 h-20 shrink-0 rounded-lg overflow-hidden border border-white/20">
-                <Image
-                  src="/images/convencion-2026-banner.png"
-                  alt="Convención 2026"
-                  width={64}
-                  height={80}
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
               <div className="flex-1 min-w-0">
                 <p className="text-white font-bold text-sm mb-1">
                   XXII Convención Anual

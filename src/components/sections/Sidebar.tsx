@@ -75,22 +75,20 @@ export default function Sidebar({
 
       {/* Convención 2026 */}
       <a
-        href="https://convencion2026.sochivas.cl"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/convencion-2026"
         className="card block overflow-hidden border-2 border-accent/20 hover:border-accent/40 transition-colors group"
       >
         <div className="relative h-32 overflow-hidden">
           <Image
             src="/images/convencion-2026-banner.png"
-            alt="XII° Convención SOCHIVAS 2026"
+            alt="XXII Convención SOCHIVAS 2026"
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
         <div className="p-4">
           <h3 className="font-bold text-navy text-base mb-1">
-            XII° Convención 2026
+            XXII Convención 2026
           </h3>
           <p className="text-xs text-muted mb-2">23-24 abril · Hotel Santa Cruz, Valle de Colchagua</p>
           <span className="inline-flex items-center gap-1 text-accent text-sm font-semibold">

@@ -12,7 +12,7 @@ const quickLinks = [
 
 const externalLinks = [
   { label: "Buscar Especialista", href: "/directorio" },
-  { label: "Convención 2026", href: "https://convencion2026.sochivas.cl", external: true },
+  { label: "Convención 2026", href: "/convencion-2026" },
   { label: "Cursos Online", href: "https://info.cursosochivas.cl", external: true },
   { label: "Webinars Journal Club", href: "/webinars" },
   { label: "Galería", href: "#galeria" },
