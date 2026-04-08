@@ -90,7 +90,7 @@ export default function BannerPage() {
 
       {/* Preview */}
       <div className="max-w-4xl mx-auto py-8 px-4">
-        <div className="bg-white shadow-2xl rounded-lg overflow-hidden mx-auto" style={{ width: 794 }}>
+        <div className="bg-white shadow-2xl rounded-lg overflow-hidden mx-auto" style={{ maxWidth: 794 }}>
           <BannerConvencion ref={bannerRef} />
         </div>
         <p className="text-center text-xs text-muted mt-4">

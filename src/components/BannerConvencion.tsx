@@ -76,7 +76,8 @@ const BannerConvencion = forwardRef<HTMLDivElement>(function BannerConvencion(_,
     <div
       ref={ref}
       style={{
-        width: 700,
+        width: "100%",
+        maxWidth: 794,
         position: "relative",
         fontFamily: "'Source Sans 3','Source Sans Pro','Segoe UI',Arial,sans-serif",
         backgroundColor: "#fff",
