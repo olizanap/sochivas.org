@@ -32,13 +32,13 @@ const auspiciadoresRow2: Auspiciador[] = [
 
 const auspiciadoresRow3: Auspiciador[] = [
   { nombre: "OPTIVISIÓN" },
-  { nombre: "Urgo" },
+  { nombre: "Urgo", logo: "/images/logos/urgo.png" },
   { nombre: "Boston Scientific" },
   { nombre: "Theodoluz" },
   { nombre: "BIOHERTZ" },
   { nombre: "TH Medical" },
   { nombre: "CAMIR" },
-  { nombre: "CMS Medical" },
+  { nombre: "CMS Medical", logo: "/images/logos/cms-medical.png" },
 ];
 
 /* ══════════════════════════════════════════════════════════ */
