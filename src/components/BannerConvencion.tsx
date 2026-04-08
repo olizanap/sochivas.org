@@ -11,34 +11,34 @@ import { forwardRef } from "react";
 type Auspiciador = { nombre: string; logo?: string };
 
 const auspiciadoresRow1: Auspiciador[] = [
-  { nombre: "Cencomex" },
-  { nombre: "Ciclomed" },
-  { nombre: "Penumbra" },
-  { nombre: "Prismamed" },
+  { nombre: "Cencomex", logo: "/images/logos/cencomex.png" },
+  { nombre: "Ciclomed", logo: "/images/logos/ciclomed.png" },
+  { nombre: "Penumbra", logo: "/images/logos/penumbra.png" },
+  { nombre: "Prismamed", logo: "/images/logos/prismamed.png" },
   { nombre: "Essity", logo: "/images/logos/essity.svg" },
-  { nombre: "Inari Medical" },
-  { nombre: "Stryker" },
-  { nombre: "Medtronic" },
+  { nombre: "Inari Medical", logo: "/images/logos/inari-medical.png" },
+  { nombre: "Stryker", logo: "/images/logos/stryker.png" },
+  { nombre: "Medtronic", logo: "/images/logos/medtronic.png" },
 ];
 
 const auspiciadoresRow2: Auspiciador[] = [
-  { nombre: "Terumo" },
+  { nombre: "Terumo", logo: "/images/logos/terumo.png" },
   { nombre: "Grupo Chic" },
-  { nombre: "Varimed" },
+  { nombre: "Varimed", logo: "/images/logos/varimed.png" },
   { nombre: "Axon Pharma", logo: "/images/logos/axon-pharma.webp" },
   { nombre: "Varifarma", logo: "/images/logos/varifarma.png" },
   { nombre: "Optivisión" },
   { nombre: "Urgo Medical", logo: "/images/logos/urgo.png" },
-  { nombre: "Vitalmed" },
+  { nombre: "Vitalmed", logo: "/images/logos/vitalmed.png" },
 ];
 
 const auspiciadoresRow3: Auspiciador[] = [
-  { nombre: "LeMare" },
-  { nombre: "Boston Scientific" },
-  { nombre: "Theodoluz" },
-  { nombre: "Biohertz" },
-  { nombre: "TH Medical" },
-  { nombre: "Camir" },
+  { nombre: "LeMare", logo: "/images/logos/lemare.png" },
+  { nombre: "Boston Scientific", logo: "/images/logos/boston-scientific.png" },
+  { nombre: "Theodoluz", logo: "/images/logos/theodoluz.png" },
+  { nombre: "Biohertz", logo: "/images/logos/biohertz.png" },
+  { nombre: "TH Medical", logo: "/images/logos/th-medical.png" },
+  { nombre: "Camir", logo: "/images/logos/camir.png" },
   { nombre: "CMS Medical", logo: "/images/logos/cms-medical.png" },
 ];
 
@@ -53,14 +53,14 @@ function SponsorItem({ a }: { a: Auspiciador }) {
       <img
         src={a.logo}
         alt={a.nombre}
-        style={{ height: 28, width: "auto", objectFit: "contain" }}
+        style={{ height: 22, maxWidth: 80, width: "auto", objectFit: "contain" }}
       />
     );
   }
   return (
     <span
       style={{
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: 700,
         color: "#333",
         whiteSpace: "nowrap",
@@ -109,9 +109,9 @@ const BannerConvencion = forwardRef<HTMLDivElement>(function BannerConvencion(_,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              flexWrap: "wrap",
-              gap: 16,
-              marginBottom: 10,
+              flexWrap: "nowrap",
+              gap: 12,
+              marginBottom: 6,
             }}
           >
             {row.map((a, ni) => (

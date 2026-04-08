@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import {
   CalendarDays,
   MapPin,
@@ -8,6 +7,7 @@ import {
   UtensilsCrossed,
   Users,
 } from "lucide-react";
+import BannerConvencionSection from "./BannerConvencionSection";
 
 export const metadata: Metadata = {
   title: "XXII Convención Anual 2026",
@@ -98,21 +98,24 @@ const auspiciadores = [
   "Penumbra",
   "Prismamed",
   "Essity",
-  "Apnisity",
-  "Varifarma",
-  "Inari / Stryker",
+  "Inari Medical",
+  "Stryker",
   "Medtronic",
   "Terumo",
-  "GrupoChic / Varimed",
+  "Grupo Chic",
+  "Varimed",
   "Axon Pharma",
   "Varifarma",
-  "Optivision",
-  "Urgo",
+  "Optivisión",
+  "Urgo Medical",
+  "Vitalmed",
+  "LeMare",
   "Boston Scientific",
   "Theodoluz",
   "Biohertz",
   "TH Medical",
   "Camir",
+  "CMS Medical",
 ];
 
 function TipoIcon({ tipo }: { tipo: string }) {
@@ -140,14 +143,7 @@ export default function Convencion2026Page() {
           </h1>
           <div className="max-w-3xl mx-auto">
             <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10">
-              <Image
-                src="/images/convencion-2026-banner.png"
-                alt="Programa XXII Convención Anual SOCHIVAS 2026"
-                width={800}
-                height={1200}
-                className="w-full h-auto"
-                priority
-              />
+              <BannerConvencionSection />
             </div>
           </div>
         </div>
