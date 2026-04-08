@@ -17,7 +17,7 @@ const auspiciadoresRow1: Auspiciador[] = [
   { nombre: "Prismamed" },
   { nombre: "Essity", logo: "/images/logos/essity.svg" },
   { nombre: "Apnisity" },
-  { nombre: "VARIFARMA" },
+  { nombre: "VARIFARMA", logo: "/images/logos/varifarma.png" },
 ];
 
 const auspiciadoresRow2: Auspiciador[] = [
