@@ -27,7 +27,6 @@ const auspiciadoresRow2: Auspiciador[] = [
   { nombre: "GrupoChic" },
   { nombre: "Varimed" },
   { nombre: "AXON Pharma" },
-  { nombre: "VARIFARMA" },
 ];
 
 const auspiciadoresRow3: Auspiciador[] = [
