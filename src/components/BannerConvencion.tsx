@@ -15,18 +15,18 @@ const auspiciadoresRow1: Auspiciador[] = [
   { nombre: "CICLOMED" },
   { nombre: "Penumbra" },
   { nombre: "Prismamed" },
-  { nombre: "Essity" },
+  { nombre: "Essity", logo: "/images/logos/essity.svg" },
   { nombre: "Apnisity" },
   { nombre: "VARIFARMA" },
 ];
 
 const auspiciadoresRow2: Auspiciador[] = [
   { nombre: "INARI | Stryker" },
-  { nombre: "Medtronic" },
+  { nombre: "Medtronic", logo: "/images/logos/medtronic.svg" },
   { nombre: "TERUMO" },
   { nombre: "GrupoChic" },
   { nombre: "Varimed" },
-  { nombre: "AXON Pharma" },
+  { nombre: "AXON Pharma", logo: "/images/logos/axon-pharma.webp" },
 ];
 
 const auspiciadoresRow3: Auspiciador[] = [
