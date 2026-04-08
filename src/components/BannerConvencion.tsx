@@ -12,31 +12,33 @@ type Auspiciador = { nombre: string; logo?: string };
 
 const auspiciadoresRow1: Auspiciador[] = [
   { nombre: "Cencomex" },
-  { nombre: "CICLOMED" },
+  { nombre: "Ciclomed" },
   { nombre: "Penumbra" },
   { nombre: "Prismamed" },
   { nombre: "Essity", logo: "/images/logos/essity.svg" },
-  { nombre: "Apnisity" },
-  { nombre: "VARIFARMA", logo: "/images/logos/varifarma.png" },
+  { nombre: "Inari Medical" },
+  { nombre: "Stryker" },
+  { nombre: "Medtronic" },
 ];
 
 const auspiciadoresRow2: Auspiciador[] = [
-  { nombre: "INARI | Stryker" },
-  { nombre: "Medtronic" },
-  { nombre: "TERUMO" },
-  { nombre: "GrupoChic" },
+  { nombre: "Terumo" },
+  { nombre: "Grupo Chic" },
   { nombre: "Varimed" },
-  { nombre: "AXON Pharma", logo: "/images/logos/axon-pharma.webp" },
+  { nombre: "Axon Pharma", logo: "/images/logos/axon-pharma.webp" },
+  { nombre: "Varifarma", logo: "/images/logos/varifarma.png" },
+  { nombre: "Optivisión" },
+  { nombre: "Urgo Medical", logo: "/images/logos/urgo.png" },
+  { nombre: "Vitalmed" },
 ];
 
 const auspiciadoresRow3: Auspiciador[] = [
-  { nombre: "OPTIVISIÓN" },
-  { nombre: "Urgo", logo: "/images/logos/urgo.png" },
+  { nombre: "LeMare" },
   { nombre: "Boston Scientific" },
   { nombre: "Theodoluz" },
-  { nombre: "BIOHERTZ" },
+  { nombre: "Biohertz" },
   { nombre: "TH Medical" },
-  { nombre: "CAMIR" },
+  { nombre: "Camir" },
   { nombre: "CMS Medical", logo: "/images/logos/cms-medical.png" },
 ];
 
