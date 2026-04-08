@@ -22,7 +22,7 @@ const auspiciadoresRow1: Auspiciador[] = [
 
 const auspiciadoresRow2: Auspiciador[] = [
   { nombre: "INARI | Stryker" },
-  { nombre: "Medtronic", logo: "/images/logos/medtronic.svg" },
+  { nombre: "Medtronic" },
   { nombre: "TERUMO" },
   { nombre: "GrupoChic" },
   { nombre: "Varimed" },
