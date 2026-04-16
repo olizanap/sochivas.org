@@ -91,7 +91,7 @@ export default function Hero() {
             <div className="relative lg:rotate-1 group-hover:rotate-0 transition-transform duration-500">
               <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-white/15 group-hover:border-accent/30 transition-all duration-500 group-hover:shadow-[0_25px_70px_rgba(192,57,43,0.25)]">
                 <Image
-                  src="/images/convencion-2026-banner.png"
+                  src="/images/convencion-2026-banner.jpg"
                   alt="Programa XXII Convención Anual SOCHIVAS 2026"
                   width={420}
                   height={630}

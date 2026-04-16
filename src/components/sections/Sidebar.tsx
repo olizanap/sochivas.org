@@ -80,7 +80,7 @@ export default function Sidebar({
       >
         <div className="relative h-32 overflow-hidden">
           <Image
-            src="/images/convencion-2026-banner.png"
+            src="/images/convencion-2026-banner.jpg"
             alt="XXII Convención SOCHIVAS 2026"
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
