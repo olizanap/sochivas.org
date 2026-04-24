@@ -2,100 +2,82 @@
 
 Panel web para que el directorio edite noticias, webinars, información para pacientes, etc., **sin tocar código**.
 
-- **URL del panel**: https://sochivas.org/admin
+- **URL del panel**: https://sochivas.org/admin/ (también funciona en https://www.sochivas.org/admin/)
 - **Login**: con cuenta GitHub (los editores deben tener acceso al repo `olizanap/sochivas.org`)
 - **Cómo funciona**: cada edición se guarda como un commit en GitHub → Railway redespliega → cambios visibles en ~2 minutos.
 
 ---
 
-## Estado del setup
+## Estado del setup ✅ OPERATIVO
 
 - [x] Archivos del CMS creados (`public/admin/index.html`, `public/admin/config.yml`)
 - [x] Carpeta de media creada (`public/images/uploads/`)
-- [x] Página "Convención" agregada como contenido editable (`src/content/convencion.md`)
-- [ ] **Pendiente — paso humano**: crear OAuth App en GitHub
-- [ ] **Pendiente — paso humano**: deployar el OAuth Proxy en Railway
-- [ ] **Pendiente — paso humano**: agregar editores al repo
+- [x] Páginas únicas como contenido editable (`src/content/sociedad.md`, `directorio.md`, `convencion.md`)
+- [x] OAuth App creada en GitHub (**SOCHIVAS CMS**)
+- [x] OAuth Proxy deployado en Railway
+- [x] `config.yml` apuntando al proxy real
+- [x] `<base href="/admin/">` agregado para resolver bug de URL relativa
+- [x] Login con GitHub probado y funcionando
+- [ ] **Pendiente — paso humano**: agregar editores al repo (PASO 3 más abajo)
 
 ---
 
-## PASO 1 — Crear OAuth App en GitHub (5 min)
+## Infraestructura desplegada
 
-Una OAuth App permite que Decap CMS pida login a GitHub.
+| Componente | URL / Identificador |
+|---|---|
+| Sitio Next.js | https://sochivas.org (Railway: `sochivasorg-sochivasorg.up.railway.app`) |
+| Panel CMS | https://sochivas.org/admin/ |
+| OAuth Proxy en Railway | https://netlify-cms-github-oauth-provider-sochivasorg.up.railway.app |
+| GitHub OAuth App | "SOCHIVAS CMS" en https://github.com/settings/developers |
+| Repo de contenido | https://github.com/olizanap/sochivas.org |
 
-1. Ir a https://github.com/settings/developers → **New OAuth App**
-2. Llenar:
-   - **Application name**: `SOCHIVAS CMS`
-   - **Homepage URL**: `https://sochivas.org`
-   - **Authorization callback URL**: `https://sochivas-cms-oauth.up.railway.app/callback`
-     *(este dominio aún no existe, lo crearás en el paso 2; por ahora pon el valor tal cual y luego se actualiza si cambia)*
-3. **Register application**
-4. En la pantalla siguiente:
-   - Anotar el **Client ID**
-   - Hacer click en **Generate a new client secret** y anotar el **Client Secret** (solo se muestra una vez)
+### Variables de entorno del OAuth Proxy (Railway)
 
-Guarda esos dos valores, los necesitas en el paso 2.
+```
+NODE_ENV=production
+ORIGINS=sochivas.org,www.sochivas.org,sochivasorg-sochivasorg.up.railway.app
+OAUTH_CLIENT_ID=<Client ID del OAuth App de GitHub>
+OAUTH_CLIENT_SECRET=<Client Secret del OAuth App de GitHub>
+```
 
----
+> ⚠️ Si en el futuro se agrega un nuevo dominio (ej. `cms.sochivas.org`), hay que sumarlo a `ORIGINS` separado por coma sin espacios, o el login falla con "Invalid origin".
 
-## PASO 2 — Deployar OAuth Proxy en Railway (10 min)
+### Authorization Callback URL en GitHub OAuth App
 
-Decap CMS no puede hablar directo con GitHub OAuth desde el navegador (CORS). Necesita un microservicio intermediario. Es un repo público open source, no escribimos código.
-
-1. Ir a Railway → **+ New** → **Deploy from GitHub repo**
-2. Repo a deployar: `https://github.com/vencax/netlify-cms-github-oauth-provider`
-   - (Si Railway pide acceso al repo, fork primero a tu cuenta y luego conectarlo)
-3. Una vez creado el servicio, ir a **Variables** y agregar:
-   ```
-   OAUTH_CLIENT_ID       = (Client ID del paso 1)
-   OAUTH_CLIENT_SECRET   = (Client Secret del paso 1)
-   ORIGIN                = https://sochivas.org
-   REDIRECT_URL          = https://sochivas.org/admin/
-   ```
-4. En **Settings** → **Networking** → **Generate Domain** (Railway te da uno tipo `sochivas-cms-oauth-production-XXXX.up.railway.app`)
-5. **Importante**: copiar ese dominio generado y:
-   - **Actualizar** el callback en GitHub OAuth App: `https://<dominio-generado>/callback`
-   - **Actualizar** `public/admin/config.yml` línea `base_url:` con ese dominio (o configurar dominio custom `cms.sochivas.org` apuntando a Railway)
+```
+https://netlify-cms-github-oauth-provider-sochivasorg.up.railway.app/callback
+```
 
 ---
 
 ## PASO 3 — Agregar editores al repo (5 min por editor)
 
-Solo personas con acceso al repo `olizanap/sochivas.org` pueden entrar al CMS.
-
-Para cada miembro del directorio que vaya a editar:
+Solo personas con acceso al repo `olizanap/sochivas.org` pueden entrar al CMS. Para cada miembro del directorio que vaya a editar:
 
 1. Pedirles que creen cuenta en https://github.com (si no tienen)
 2. En GitHub → repo `sochivas.org` → **Settings** → **Collaborators** → **Add people**
 3. Buscar por usuario o email → **Add** con permiso **Write**
 4. El editor recibe email, lo acepta
-5. Ya puede entrar a https://sochivas.org/admin con su cuenta GitHub
+5. Ya puede entrar a https://sochivas.org/admin/ con su cuenta GitHub
 
-**Recomendación**: crear un GitHub Team `sochivas-editores` para gestionar permisos en grupo.
-
----
-
-## PASO 4 — Probar que funciona
-
-1. Abre https://sochivas.org/admin
-2. Click en **Login with GitHub** → autoriza
-3. Deberías ver el panel con las colecciones: Noticias, Pacientes, Webinars, Páginas
-4. Click en **Noticias** → **+ Nueva noticia**
-5. Llena el formulario, click **Publicar** (o **Guardar borrador** si tienes editorial workflow activo)
-6. Espera ~2 min y verifica que aparece en https://sochivas.org/noticias
+**Recomendación**: crear un GitHub Team `sochivas-editores` para gestionar permisos en grupo en lugar de uno por uno.
 
 ---
 
-## Estructura del CMS
+## Cómo se usa el panel (para editores)
 
-| Colección | Contenido | Tipo |
-|---|---|---|
-| **Noticias** | Posts del home/sección noticias | Múltiple (carpeta) |
-| **Información Pacientes** | Artículos médicos divulgativos | Múltiple (carpeta) |
-| **Webinars / Journal Club** | Sesiones mensuales | Múltiple (carpeta) |
-| **La Sociedad** | Página "Quiénes somos" | Página única |
-| **Directorio** | Listado del directorio actual | Página única |
-| **Convención Anual** | Datos de la convención vigente | Página única |
+1. Ir a https://sochivas.org/admin/
+2. Click **Iniciar sesión con GitHub** → autorizar
+3. En la barra izquierda elegir la colección a editar:
+   - **Noticias** → posts del home/sección noticias
+   - **Información Pacientes** → artículos médicos divulgativos
+   - **Webinars / Journal Club** → sesiones mensuales
+   - **Páginas Institucionales** → La Sociedad, Directorio, Convención Anual
+4. Para crear: botón **Nuevo …** arriba a la derecha. Para editar: click en la entrada existente.
+5. Llenar el formulario y click **Guardar** → queda como **Borrador** (Editorial Workflow activo).
+6. En la pestaña **Flujo Editorial** mover la entrada por: **Borrador → En revisión → Listo → Publicado**.
+7. Al publicar, se hace commit en GitHub → Railway re-deploya el sitio en ~2 min → cambios visibles.
 
 ---
 
@@ -107,19 +89,32 @@ Para cada miembro del directorio que vaya a editar:
 - Contenido editable: `src/content/**/*.md`
 - Media subido vía CMS: `public/images/uploads/`
 
-### Editorial Workflow activo
-El CMS está en modo `editorial_workflow`: las ediciones pasan por **Borrador → En revisión → Listo → Publicado**. Si quieres que las publicaciones sean inmediatas (sin revisión), elimina la línea `publish_mode: editorial_workflow` en `config.yml`.
+### Editorial Workflow
+El CMS está en modo `editorial_workflow`. Si se quiere que las publicaciones sean inmediatas (sin pasar por revisión), eliminar la línea `publish_mode: editorial_workflow` en `config.yml`.
 
-### Costo
+### Costo aproximado
 - **CMS Decap**: $0 (corre en el navegador del editor)
-- **OAuth Proxy en Railway**: ~$1-2/mes (es un servicio Node minúsculo, ~50 MB RAM)
+- **OAuth Proxy en Railway**: ~$1-2/mes (servicio Node minúsculo, ~50 MB RAM)
 - **Hosting Next.js (sochivas.org)**: sin cambios
 
 ### Mantenimiento
-- El CMS Decap se actualiza solo (cargado vía CDN de unpkg en `index.html`)
+- El CMS Decap se autoactualiza (cargado vía CDN de unpkg en `index.html`)
 - Si hay cambios en la estructura del contenido (nuevos campos en frontmatter), actualizar `public/admin/config.yml`
+- Si se cambia el dominio del sitio o del proxy, actualizar `ORIGINS` y la callback URL del OAuth App de GitHub
 
 ### Troubleshooting
-- **"Failed to load config"** → revisar sintaxis YAML en `config.yml`
-- **"Authentication error"** → revisar Client ID/Secret en Railway y callback URL en GitHub
-- **Publicar no aparece en el sitio** → revisar logs de Railway del Next.js (debería redeployarse al detectar el push)
+
+| Síntoma | Causa probable | Fix |
+|---|---|---|
+| `Failed to load config.yml (404)` | Caché del browser de versión anterior, o `<base href>` faltante en index.html | Hard refresh (Ctrl+F5) o ventana incógnita |
+| El popup de login no se cierra después de autorizar GitHub | El origen del sitio no está en la variable `ORIGINS` del proxy en Railway | Agregar el origen exacto (ej. `www.sochivas.org`) a `ORIGINS` separado por coma sin espacios |
+| `redirect_uri_mismatch` al hacer login | La Authorization callback URL del OAuth App de GitHub no coincide con la URL real del proxy | Editar el OAuth App en https://github.com/settings/developers y poner `https://<dominio-proxy>/callback` |
+| `process.env.ORIGINS MUST be comma separated list` en logs del proxy | `ORIGINS` con `https://`, espacios, o barras finales | Solo hostnames puros separados por coma: `sochivas.org,www.sochivas.org` |
+| Publicar no aparece en el sitio | Railway aún re-deployando, o el push no llegó | Revisar logs del Next.js en Railway (debería redeployar al detectar push en `main`) |
+
+### Cómo se hace una rotación del Client Secret
+Si hay sospecha de que el Client Secret se filtró:
+1. En https://github.com/settings/developers → **SOCHIVAS CMS** → sección **Client secrets** → revocar el actual
+2. **Generate a new client secret** → copiar el nuevo
+3. En Railway → servicio del OAuth Proxy → **Variables** → reemplazar `OAUTH_CLIENT_SECRET` por el nuevo
+4. Railway re-deploya solo en ~30 seg

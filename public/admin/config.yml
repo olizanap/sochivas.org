@@ -18,7 +18,6 @@ public_folder: "/images/uploads"
 
 site_url: https://sochivas.org
 display_url: https://sochivas.org
-logo_url: https://sochivas.org/favicon.ico
 
 locale: "es"
 
