@@ -18,13 +18,74 @@ public_folder: "/images/uploads"
 
 site_url: https://sochivas.org
 display_url: https://sochivas.org
+logo_url: https://sochivas.org/images/logo-sochivas-icon.png
 
 locale: "es"
 
+# ============================================================
+# COLECCIONES
+# ============================================================
+# Cada colección representa una sección del sitio que el directorio
+# puede editar sin tocar código. Las colecciones tipo "folder" permiten
+# crear múltiples entradas (ej. noticias). Las tipo "files" son páginas
+# únicas (ej. la portada del Home).
+# ============================================================
+
 collections:
+
+  # ----------------------------------------------------------
+  # PORTADA DEL HOME (Hero + Convención destacada)
+  # ----------------------------------------------------------
+  - name: "portada"
+    label: "Portada del sitio"
+    description: "Editá la franja principal del Home (título, subtítulo, botones) y la información de la Convención que aparece destacada."
+    files:
+      - name: "hero"
+        label: "Encabezado del Home (Hero)"
+        file: "src/content/hero.md"
+        format: "frontmatter"
+        description: "El bloque grande arriba de todo del Home. Si dejás el 'Texto del badge' vacío, se muestra automáticamente la convención del año vigente."
+        fields:
+          - { label: "Título principal", name: "title", widget: "string", default: "Sochivas", hint: "Nombre grande, ej: 'Sochivas'" }
+          - { label: "Subtítulo / bajada", name: "subtitle", widget: "string", default: "Sociedad Chilena de Cirugía Vascular y Endovascular", hint: "Texto descriptivo bajo el título" }
+          - { label: "— Botón primario (blanco) —", name: "_sep1", widget: "hidden", required: false }
+          - { label: "Texto del botón primario", name: "ctaPrimaryLabel", widget: "string", default: "Conocer más" }
+          - { label: "URL del botón primario", name: "ctaPrimaryUrl", widget: "string", default: "/la-sociedad", hint: "Ej: /la-sociedad o https://link-externo.com" }
+          - { label: "— Botón secundario (transparente) —", name: "_sep2", widget: "hidden", required: false }
+          - { label: "Texto del botón secundario", name: "ctaSecondaryLabel", widget: "string", default: "Buscar Especialista" }
+          - { label: "URL del botón secundario", name: "ctaSecondaryUrl", widget: "string", default: "/directorio" }
+          - { label: "— Badge superior (opcional) —", name: "_sep3", widget: "hidden", required: false }
+          - { label: "Texto del badge", name: "badgeText", widget: "string", required: false, hint: "Dejar vacío para mostrar automáticamente la Convención. Ej: 'XXII Convención 2026'" }
+          - { label: "URL del badge", name: "badgeUrl", widget: "string", required: false, default: "/convencion-2026" }
+
+      - name: "convencion"
+        label: "Convención Anual destacada"
+        file: "src/content/convencion.md"
+        format: "frontmatter"
+        description: "Aparece en /convencion-2026 y destacada en el Home. Para CAMBIAR DE AÑO solo hay que actualizar acá."
+        fields:
+          - { label: "Número de la convención (romanos)", name: "numero", widget: "string", default: "XXII", hint: "Ej: XXII, XXIII, XXIV" }
+          - { label: "Título", name: "title", widget: "string", default: "Convención Anual" }
+          - { label: "Subtítulo / lema", name: "subtitle", widget: "string", required: false, hint: "Ej: 'A micrófono abierto'" }
+          - { label: "Fecha de inicio", name: "fechaInicio", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "Fecha de término", name: "fechaFin", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "Fechas (texto a mostrar)", name: "fechasTexto", widget: "string", hint: "Cómo se ven en el sitio. Ej: '23 y 24 de abril, 2026'" }
+          - { label: "Ciudad / región", name: "ciudad", widget: "string", required: false, hint: "Ej: 'Valle de Colchagua'" }
+          - { label: "Lugar completo", name: "lugar", widget: "string", hint: "Ej: 'Hotel Santa Cruz, Valle de Colchagua, Chile'" }
+          - { label: "Banner del programa (imagen)", name: "banner", widget: "image", hint: "Afiche oficial. Recomendado: vertical 800x1200 px (formato JPG o PNG)" }
+          - { label: "Programa en PDF (opcional)", name: "programaPdf", widget: "file", required: false, hint: "Si subís un PDF, aparece un botón 'Descargar programa' en /convencion-2026" }
+          - { label: "Texto del botón principal", name: "ctaTexto", widget: "string", default: "Ver programa" }
+          - { label: "URL del botón principal", name: "ctaUrl", widget: "string", default: "/convencion-2026", hint: "A dónde lleva el botón. Por defecto a /convencion-2026" }
+          - { label: "¿Mostrar destacada en el Home?", name: "destacarEnHome", widget: "boolean", default: true, hint: "Si está activado, aparece en el Hero y en el sidebar de Noticias. Desactivá si la convención ya pasó." }
+          - { label: "Descripción larga (opcional)", name: "body", widget: "markdown", required: false, hint: "Texto adicional que aparece debajo del banner en /convencion-2026" }
+
+  # ----------------------------------------------------------
+  # NOTICIAS
+  # ----------------------------------------------------------
   - name: "noticias"
     label: "Noticias"
     label_singular: "Noticia"
+    description: "Posts del Home y de la sección /noticias. Las más recientes aparecen primero automáticamente."
     folder: "src/content/noticias"
     create: true
     delete: true
@@ -39,26 +100,31 @@ collections:
         pattern: "2026"
     fields:
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-      - label: "Categoría"
+      - { label: "Fecha de publicación", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - label: "Categoría visible"
         name: "category"
         widget: "select"
         default: "Noticias"
         options: ["Noticias", "Convención", "Webinar", "Comunicado", "Educación"]
-      - label: "Color de categoría"
+        hint: "Etiqueta que aparece sobre el título de la noticia"
+      - label: "Color de la categoría"
         name: "categoryColor"
         widget: "select"
         default: "blue"
         options: ["blue", "red", "green", "orange", "purple"]
-      - { label: "Resumen (excerpt)", name: "excerpt", widget: "text" }
-      - { label: "Slug (URL amigable, sin espacios)", name: "slug", widget: "string", hint: "Ej: nueva-convencion-2027" }
-      - { label: "URL destino", name: "url", widget: "string", default: "/noticias", required: false }
-      - { label: "Imagen destacada", name: "image", widget: "image", required: false }
-      - { label: "Contenido", name: "body", widget: "markdown" }
+      - { label: "Resumen / bajada", name: "excerpt", widget: "text", hint: "1-2 líneas que aparecen en la lista. Sin formato especial." }
+      - { label: "Slug (URL amigable)", name: "slug", widget: "string", hint: "Solo minúsculas y guiones, sin espacios ni acentos. Ej: nueva-convencion-2027" }
+      - { label: "URL destino al hacer click", name: "url", widget: "string", default: "/noticias", required: false, hint: "A qué página lleva la noticia. Por defecto a /noticias" }
+      - { label: "Imagen destacada (opcional)", name: "image", widget: "image", required: false, hint: "Recomendado: 1200x675 px (16:9)" }
+      - { label: "Contenido completo", name: "body", widget: "markdown" }
 
+  # ----------------------------------------------------------
+  # INFORMACIÓN PARA PACIENTES
+  # ----------------------------------------------------------
   - name: "pacientes"
     label: "Información Pacientes"
     label_singular: "Tema"
+    description: "Artículos médicos divulgativos para la sección Información Pacientes."
     folder: "src/content/pacientes"
     create: true
     delete: true
@@ -69,15 +135,19 @@ collections:
     sortable_fields: ["date", "title"]
     fields:
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-      - { label: "Resumen (excerpt)", name: "excerpt", widget: "text" }
-      - { label: "Slug", name: "slug", widget: "string", hint: "Ej: pie-diabetico" }
+      - { label: "Fecha de publicación", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Resumen / bajada", name: "excerpt", widget: "text" }
+      - { label: "Slug (URL amigable)", name: "slug", widget: "string", hint: "Ej: pie-diabetico" }
       - { label: "URL destino", name: "url", widget: "string", default: "/informacion-pacientes", required: false }
-      - { label: "Contenido", name: "body", widget: "markdown" }
+      - { label: "Contenido completo", name: "body", widget: "markdown" }
 
+  # ----------------------------------------------------------
+  # WEBINARS / JOURNAL CLUB
+  # ----------------------------------------------------------
   - name: "webinars"
     label: "Webinars / Journal Club"
     label_singular: "Webinar"
+    description: "Sesiones mensuales del Journal Club Interuniversitario. Marcá UNO como 'Activo' para mostrarlo en el Home."
     folder: "src/content/webinars"
     create: true
     delete: true
@@ -87,24 +157,29 @@ collections:
     summary: "{{title}} — {{date | date('DD MMM YYYY')}}"
     sortable_fields: ["date", "title"]
     fields:
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-      - { label: "Speaker (Doctor/a)", name: "speaker", widget: "string" }
-      - { label: "Cargo del speaker", name: "speakerRole", widget: "string", required: false }
+      - { label: "Título de la sesión", name: "title", widget: "string" }
+      - { label: "Fecha de la sesión", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Nombre del speaker", name: "speaker", widget: "string", hint: "Ej: Dr. Juan Pérez" }
+      - { label: "Cargo / institución del speaker", name: "speakerRole", widget: "string", required: false }
       - { label: "Descripción", name: "description", widget: "text" }
-      - { label: "URL del video (YouTube/Vimeo)", name: "videoUrl", widget: "string", required: false }
+      - { label: "URL del video (YouTube/Vimeo)", name: "videoUrl", widget: "string", required: false, hint: "URL completa del video. Si está vacío, no se muestra reproductor." }
       - { label: "Imagen miniatura", name: "thumbnailUrl", widget: "image", required: false, default: "/images/header-web-sochivas.png" }
-      - { label: "¿Activo? (se muestra en home)", name: "active", widget: "boolean", default: false }
+      - { label: "¿Activo? (se muestra en Home)", name: "active", widget: "boolean", default: false, hint: "Solo UN webinar puede estar activo a la vez. Activá este y desactivá los anteriores." }
       - { label: "Slug", name: "slug", widget: "string", hint: "Ej: journal-club-marzo" }
-      - { label: "Contenido / Detalles", name: "body", widget: "markdown" }
+      - { label: "Contenido / detalles", name: "body", widget: "markdown" }
 
+  # ----------------------------------------------------------
+  # PÁGINAS INSTITUCIONALES
+  # ----------------------------------------------------------
   - name: "paginas"
     label: "Páginas Institucionales"
+    description: "Páginas únicas con información permanente de la Sociedad."
     files:
       - name: "sociedad"
         label: "La Sociedad"
         file: "src/content/sociedad.md"
         format: "frontmatter"
+        description: "Página /la-sociedad: misión, visión y descripción de SOCHIVAS."
         fields:
           - { label: "Título", name: "title", widget: "string" }
           - { label: "Contenido", name: "body", widget: "markdown" }
@@ -113,19 +188,8 @@ collections:
         label: "Directorio"
         file: "src/content/directorio.md"
         format: "frontmatter"
+        description: "Página /directorio: listado del directorio en ejercicio."
         fields:
           - { label: "Título", name: "title", widget: "string" }
-          - { label: "Período (ej. 2024-2025)", name: "periodo", widget: "string" }
+          - { label: "Período", name: "periodo", widget: "string", hint: "Ej: 2024-2025" }
           - { label: "Contenido", name: "body", widget: "markdown" }
-
-      - name: "convencion"
-        label: "Convención Anual"
-        file: "src/content/convencion.md"
-        format: "frontmatter"
-        fields:
-          - { label: "Título", name: "title", widget: "string", default: "XXII Convención Anual" }
-          - { label: "Subtítulo", name: "subtitle", widget: "string", default: "A micrófono abierto", required: false }
-          - { label: "Fechas", name: "fechas", widget: "string", default: "23 y 24 de abril de 2026" }
-          - { label: "Lugar", name: "lugar", widget: "string", default: "Hotel Santa Cruz, Valle de Colchagua, Chile" }
-          - { label: "Banner (imagen del programa)", name: "banner", widget: "image", default: "/images/convencion-2026-banner.jpg" }
-          - { label: "Descripción", name: "body", widget: "markdown", required: false }

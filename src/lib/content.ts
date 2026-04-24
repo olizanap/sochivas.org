@@ -42,6 +42,34 @@ export interface SociedadData {
   content: string;
 }
 
+export interface ConvencionData {
+  numero: string;
+  title: string;
+  subtitle: string;
+  fechaInicio: string;
+  fechaFin: string;
+  fechasTexto: string;
+  ciudad: string;
+  lugar: string;
+  banner: string;
+  programaPdf: string;
+  ctaTexto: string;
+  ctaUrl: string;
+  destacarEnHome: boolean;
+  content: string;
+}
+
+export interface HeroData {
+  title: string;
+  subtitle: string;
+  ctaPrimaryLabel: string;
+  ctaPrimaryUrl: string;
+  ctaSecondaryLabel: string;
+  ctaSecondaryUrl: string;
+  badgeText: string;
+  badgeUrl: string;
+}
+
 function getMarkdownFiles(subdir: string) {
   const dir = path.join(contentDir, subdir);
   if (!fs.existsSync(dir)) return [];
@@ -125,6 +153,57 @@ export function getWebinars(): Webinar[] {
 export function getActiveWebinar(): Webinar | null {
   const webinars = getWebinars();
   return webinars.find((w) => w.active) || null;
+}
+
+export function getConvencion(): ConvencionData {
+  const filePath = path.join(contentDir, "convencion.md");
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(fileContent);
+
+  return {
+    numero: String(data.numero || "XXII"),
+    title: String(data.title || "Convención Anual"),
+    subtitle: String(data.subtitle || ""),
+    fechaInicio: String(data.fechaInicio || ""),
+    fechaFin: String(data.fechaFin || ""),
+    fechasTexto: String(data.fechasTexto || data.fechas || ""),
+    ciudad: String(data.ciudad || ""),
+    lugar: String(data.lugar || ""),
+    banner: String(data.banner || "/images/convencion-2026-banner.jpg"),
+    programaPdf: String(data.programaPdf || ""),
+    ctaTexto: String(data.ctaTexto || "Ver programa"),
+    ctaUrl: String(data.ctaUrl || "/convencion-2026"),
+    destacarEnHome: Boolean(data.destacarEnHome ?? true),
+    content: content || "",
+  };
+}
+
+export function getHero(): HeroData {
+  const filePath = path.join(contentDir, "hero.md");
+  if (!fs.existsSync(filePath)) {
+    return {
+      title: "Sochivas",
+      subtitle: "Sociedad Chilena de Cirugía Vascular y Endovascular",
+      ctaPrimaryLabel: "Conocer más",
+      ctaPrimaryUrl: "/la-sociedad",
+      ctaSecondaryLabel: "Buscar Especialista",
+      ctaSecondaryUrl: "/directorio",
+      badgeText: "",
+      badgeUrl: "",
+    };
+  }
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const { data } = matter(fileContent);
+  return {
+    title: String(data.title || "Sochivas"),
+    subtitle: String(data.subtitle || "Sociedad Chilena de Cirugía Vascular y Endovascular"),
+    ctaPrimaryLabel: String(data.ctaPrimaryLabel || "Conocer más"),
+    ctaPrimaryUrl: String(data.ctaPrimaryUrl || "/la-sociedad"),
+    ctaSecondaryLabel: String(data.ctaSecondaryLabel || "Buscar Especialista"),
+    ctaSecondaryUrl: String(data.ctaSecondaryUrl || "/directorio"),
+    badgeText: String(data.badgeText || ""),
+    badgeUrl: String(data.badgeUrl || ""),
+  };
 }
 
 export function getDirectorio(): DirectorioData {

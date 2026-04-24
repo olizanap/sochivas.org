@@ -1,7 +1,14 @@
 import { ArrowRight, Search, CalendarDays, MapPin } from "lucide-react";
 import Image from "next/image";
+import { getConvencion, getHero } from "@/lib/content";
 
 export default function Hero() {
+  const hero = getHero();
+  const conv = getConvencion();
+  const showConvencion = conv.destacarEnHome;
+  const badgeText = hero.badgeText || (showConvencion ? `${conv.numero} ${conv.title} ${conv.fechaInicio?.slice(0, 4) || ""}`.trim() : "");
+  const badgeUrl = hero.badgeUrl || conv.ctaUrl || "/convencion-2026";
+
   return (
     <section className="relative overflow-hidden bg-navy-dark">
       {/* Fondo con gradientes */}
@@ -29,80 +36,90 @@ export default function Hero() {
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-14">
           {/* Texto */}
           <div className="flex-1 min-w-0">
-            <a
-              href="/convencion-2026"
-              className="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 text-white/90 text-xs font-semibold uppercase tracking-wider px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 hover:bg-accent/30 transition-colors"
-            >
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              XXII Convención 2026
-            </a>
+            {badgeText && (
+              <a
+                href={badgeUrl}
+                className="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 text-white/90 text-xs font-semibold uppercase tracking-wider px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 hover:bg-accent/30 transition-colors"
+              >
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                {badgeText}
+              </a>
+            )}
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-2 sm:mb-4 tracking-tight">
-              Sochivas
+              {hero.title}
             </h1>
             <p className="text-base sm:text-xl text-white/70 mb-5 sm:mb-8 max-w-2xl leading-relaxed">
-              Sociedad Chilena de Cirugía Vascular y Endovascular
+              {hero.subtitle}
             </p>
 
             <div className="flex items-center gap-3 sm:gap-4">
-              <a href="/la-sociedad" className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-navy font-semibold text-sm rounded-lg hover:bg-gray-100 transition-all">
-                Conocer más
+              <a href={hero.ctaPrimaryUrl} className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-navy font-semibold text-sm rounded-lg hover:bg-gray-100 transition-all">
+                {hero.ctaPrimaryLabel}
                 <ArrowRight size={16} />
               </a>
-              <a href="/directorio" className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 border border-white/30 text-white font-semibold text-sm rounded-lg hover:bg-white/10 transition-all">
+              <a href={hero.ctaSecondaryUrl} className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 border border-white/30 text-white font-semibold text-sm rounded-lg hover:bg-white/10 transition-all">
                 <Search size={16} />
-                Buscar Especialista
+                {hero.ctaSecondaryLabel}
               </a>
             </div>
 
             {/* Invitación convención — solo mobile */}
-            <a
-              href="/convencion-2026"
-              className="md:hidden mt-6 flex items-center gap-4 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-4 hover:bg-white/15 transition-colors"
-            >
-              <div className="flex-1 min-w-0">
-                <p className="text-white font-bold text-sm mb-1">
-                  XXII Convención Anual
-                </p>
-                <div className="flex flex-col gap-0.5 text-white/50 text-xs">
-                  <span className="flex items-center gap-1">
-                    <CalendarDays size={11} />
-                    23 y 24 de abril, 2026
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MapPin size={11} />
-                    Hotel Santa Cruz, Colchagua
-                  </span>
+            {showConvencion && (
+              <a
+                href={conv.ctaUrl}
+                className="md:hidden mt-6 flex items-center gap-4 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-4 hover:bg-white/15 transition-colors"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-bold text-sm mb-1">
+                    {conv.numero} {conv.title}
+                  </p>
+                  <div className="flex flex-col gap-0.5 text-white/50 text-xs">
+                    {conv.fechasTexto && (
+                      <span className="flex items-center gap-1">
+                        <CalendarDays size={11} />
+                        {conv.fechasTexto}
+                      </span>
+                    )}
+                    {(conv.ciudad || conv.lugar) && (
+                      <span className="flex items-center gap-1">
+                        <MapPin size={11} />
+                        {conv.ciudad || conv.lugar}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-accent text-xs font-semibold mt-1.5 flex items-center gap-1">
+                    {conv.ctaTexto} <ArrowRight size={12} />
+                  </p>
                 </div>
-                <p className="text-accent text-xs font-semibold mt-1.5 flex items-center gap-1">
-                  Ver programa <ArrowRight size={12} />
-                </p>
-              </div>
-            </a>
+              </a>
+            )}
           </div>
 
           {/* Folleto convención — solo desktop/tablet */}
-          <a
-            href="/convencion-2026"
-            className="hidden md:block md:max-w-[360px] lg:max-w-[420px] shrink-0 group relative"
-          >
-            <div className="absolute -inset-4 bg-accent/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute -inset-3 bg-navy-light/10 rounded-3xl blur-xl" />
-            <div className="relative lg:rotate-1 group-hover:rotate-0 transition-transform duration-500">
-              <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-white/15 group-hover:border-accent/30 transition-all duration-500 group-hover:shadow-[0_25px_70px_rgba(192,57,43,0.25)]">
-                <Image
-                  src="/images/convencion-2026-banner.jpg"
-                  alt="Programa XXII Convención Anual SOCHIVAS 2026"
-                  width={420}
-                  height={630}
-                  className="w-full h-auto"
-                />
+          {showConvencion && conv.banner && (
+            <a
+              href={conv.ctaUrl}
+              className="hidden md:block md:max-w-[360px] lg:max-w-[420px] shrink-0 group relative"
+            >
+              <div className="absolute -inset-4 bg-accent/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-3 bg-navy-light/10 rounded-3xl blur-xl" />
+              <div className="relative lg:rotate-1 group-hover:rotate-0 transition-transform duration-500">
+                <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-white/15 group-hover:border-accent/30 transition-all duration-500 group-hover:shadow-[0_25px_70px_rgba(192,57,43,0.25)]">
+                  <Image
+                    src={conv.banner}
+                    alt={`Programa ${conv.numero} ${conv.title} SOCHIVAS`}
+                    width={420}
+                    height={630}
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
-            </div>
-            <p className="text-center text-white/40 text-xs mt-3 group-hover:text-accent transition-colors duration-300">
-              Ver programa completo →
-            </p>
-          </a>
+              <p className="text-center text-white/40 text-xs mt-3 group-hover:text-accent transition-colors duration-300">
+                {conv.ctaTexto} →
+              </p>
+            </a>
+          )}
         </div>
       </div>
     </section>

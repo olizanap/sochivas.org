@@ -8,12 +8,15 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import type { Noticia } from "@/lib/content";
+import { getConvencion } from "@/lib/content";
 
 export default function Sidebar({
   recentPosts,
 }: {
   recentPosts: Noticia[];
 }) {
+  const conv = getConvencion();
+
   return (
     <aside className="space-y-6">
       {/* Search */}
@@ -73,33 +76,39 @@ export default function Sidebar({
         </span>
       </a>
 
-      {/* Convención 2026 */}
-      <a
-        href="/convencion-2026"
-        className="card block overflow-hidden border-2 border-accent/20 hover:border-accent/40 transition-colors group"
-      >
-        <div className="relative h-32 overflow-hidden">
-          <Image
-            src="/images/convencion-2026-banner.jpg"
-            alt="XXII Convención SOCHIVAS 2026"
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        <div className="p-4">
-          <h3 className="font-bold text-navy text-base mb-1">
-            XXII Convención 2026
-          </h3>
-          <p className="text-xs text-muted mb-2">23-24 abril · Hotel Santa Cruz, Valle de Colchagua</p>
-          <span className="inline-flex items-center gap-1 text-accent text-sm font-semibold">
-            Más información
-            <ArrowRight
-              size={14}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </span>
-        </div>
-      </a>
+      {/* Convención (editable desde CMS) */}
+      {conv.destacarEnHome && (
+        <a
+          href={conv.ctaUrl}
+          className="card block overflow-hidden border-2 border-accent/20 hover:border-accent/40 transition-colors group"
+        >
+          {conv.banner && (
+            <div className="relative h-32 overflow-hidden">
+              <Image
+                src={conv.banner}
+                alt={`${conv.numero} ${conv.title} SOCHIVAS`}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          )}
+          <div className="p-4">
+            <h3 className="font-bold text-navy text-base mb-1">
+              {conv.numero} {conv.title}
+            </h3>
+            <p className="text-xs text-muted mb-2">
+              {[conv.fechasTexto, conv.lugar].filter(Boolean).join(" · ")}
+            </p>
+            <span className="inline-flex items-center gap-1 text-accent text-sm font-semibold">
+              Más información
+              <ArrowRight
+                size={14}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </span>
+          </div>
+        </a>
+      )}
 
       {/* Calendar mini */}
       <div className="card p-5">
