@@ -1,0 +1,132 @@
+backend:
+  name: github
+  repo: olizanap/sochivas.org
+  branch: main
+  base_url: https://sochivas-cms-oauth.up.railway.app
+  auth_endpoint: /auth
+  commit_messages:
+    create: "content: nueva entrada en {{collection}} — {{slug}}"
+    update: "content: actualizar {{collection}} — {{slug}}"
+    delete: "content: eliminar {{collection}} — {{slug}}"
+    uploadMedia: "content: subir imagen {{path}}"
+    deleteMedia: "content: eliminar imagen {{path}}"
+
+publish_mode: editorial_workflow
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://sochivas.org
+display_url: https://sochivas.org
+logo_url: https://sochivas.org/favicon.ico
+
+locale: "es"
+
+collections:
+  - name: "noticias"
+    label: "Noticias"
+    label_singular: "Noticia"
+    folder: "src/content/noticias"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{date | date('DD MMM YYYY')}}"
+    sortable_fields: ["date", "title"]
+    view_filters:
+      - label: "Publicadas este año"
+        field: date
+        pattern: "2026"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - label: "Categoría"
+        name: "category"
+        widget: "select"
+        default: "Noticias"
+        options: ["Noticias", "Convención", "Webinar", "Comunicado", "Educación"]
+      - label: "Color de categoría"
+        name: "categoryColor"
+        widget: "select"
+        default: "blue"
+        options: ["blue", "red", "green", "orange", "purple"]
+      - { label: "Resumen (excerpt)", name: "excerpt", widget: "text" }
+      - { label: "Slug (URL amigable, sin espacios)", name: "slug", widget: "string", hint: "Ej: nueva-convencion-2027" }
+      - { label: "URL destino", name: "url", widget: "string", default: "/noticias", required: false }
+      - { label: "Imagen destacada", name: "image", widget: "image", required: false }
+      - { label: "Contenido", name: "body", widget: "markdown" }
+
+  - name: "pacientes"
+    label: "Información Pacientes"
+    label_singular: "Tema"
+    folder: "src/content/pacientes"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Resumen (excerpt)", name: "excerpt", widget: "text" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "Ej: pie-diabetico" }
+      - { label: "URL destino", name: "url", widget: "string", default: "/informacion-pacientes", required: false }
+      - { label: "Contenido", name: "body", widget: "markdown" }
+
+  - name: "webinars"
+    label: "Webinars / Journal Club"
+    label_singular: "Webinar"
+    folder: "src/content/webinars"
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{date | date('DD MMM YYYY')}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Speaker (Doctor/a)", name: "speaker", widget: "string" }
+      - { label: "Cargo del speaker", name: "speakerRole", widget: "string", required: false }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - { label: "URL del video (YouTube/Vimeo)", name: "videoUrl", widget: "string", required: false }
+      - { label: "Imagen miniatura", name: "thumbnailUrl", widget: "image", required: false, default: "/images/header-web-sochivas.png" }
+      - { label: "¿Activo? (se muestra en home)", name: "active", widget: "boolean", default: false }
+      - { label: "Slug", name: "slug", widget: "string", hint: "Ej: journal-club-marzo" }
+      - { label: "Contenido / Detalles", name: "body", widget: "markdown" }
+
+  - name: "paginas"
+    label: "Páginas Institucionales"
+    files:
+      - name: "sociedad"
+        label: "La Sociedad"
+        file: "src/content/sociedad.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - name: "directorio"
+        label: "Directorio"
+        file: "src/content/directorio.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Período (ej. 2024-2025)", name: "periodo", widget: "string" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - name: "convencion"
+        label: "Convención Anual"
+        file: "src/content/convencion.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Título", name: "title", widget: "string", default: "XXII Convención Anual" }
+          - { label: "Subtítulo", name: "subtitle", widget: "string", default: "A micrófono abierto", required: false }
+          - { label: "Fechas", name: "fechas", widget: "string", default: "23 y 24 de abril de 2026" }
+          - { label: "Lugar", name: "lugar", widget: "string", default: "Hotel Santa Cruz, Valle de Colchagua, Chile" }
+          - { label: "Banner (imagen del programa)", name: "banner", widget: "image", default: "/images/convencion-2026-banner.jpg" }
+          - { label: "Descripción", name: "body", widget: "markdown", required: false }
